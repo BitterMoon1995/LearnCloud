@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+        <!--MyBatis3:复杂动态查询
+        MyBatis3Simple:简单CUID   -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!--设置不生成任何注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- jdbc配置 -->
+        <jdbcConnection
+                driverClass="com.mysql.cj.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:3306/test_shop?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"
+                userId="root"
+                password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- javaBean的生成 -->
+        <javaModelGenerator targetPackage="com.senorita.model"
+                            targetProject=".\src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- xml映射文件的生成 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject=".\src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- mapper接口的生成 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.senorita.dao" targetProject=".\src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!-- 指定逆向分析哪些表，根据表创建JavaBean
+        domainObjectName:表对应的类名。若不指定，则默认为首字母大写表名
+        -->
+        <table tableName="u_order_info" domainObjectName="OrderInfo"/>
+
+    </context>
+</generatorConfiguration>

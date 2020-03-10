@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senorita.dao.OrderInfoMapper">
+  <resultMap id="BaseResultMap" type="com.senorita.model.OrderInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_pid" jdbcType="BIGINT" property="orderPid" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="total_fee" jdbcType="INTEGER" property="totalFee" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="pay_type" jdbcType="CHAR" property="payType" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="trade_no" jdbcType="VARCHAR" property="tradeNo" />
+    <result column="pay_channel" jdbcType="CHAR" property="payChannel" />
+    <result column="pay_config_id" jdbcType="BIGINT" property="payConfigId" />
+    <result column="refund_time" jdbcType="TIMESTAMP" property="refundTime" />
+    <result column="orders_type" jdbcType="INTEGER" property="ordersType" />
+    <result column="bonus_rate" jdbcType="INTEGER" property="bonusRate" />
+    <result column="total_fee_rate" jdbcType="INTEGER" property="totalFeeRate" />
+    <result column="order_status" jdbcType="CHAR" property="orderStatus" />
+    <result column="out_number" jdbcType="VARCHAR" property="outNumber" />
+    <result column="out_company" jdbcType="VARCHAR" property="outCompany" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.senorita.model.OrderInfo">
+    <result column="out_desc" jdbcType="LONGVARCHAR" property="outDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_pid, order_no, user_id, total_fee, create_time, pay_type, pay_time, trade_no, 
+    pay_channel, pay_config_id, refund_time, orders_type, bonus_rate, total_fee_rate, 
+    order_status, out_number, out_company
+  </sql>
+  <sql id="Blob_Column_List">
+    out_desc
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.senorita.model.OrderInfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from u_order_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.senorita.model.OrderInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from u_order_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from u_order_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from u_order_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.senorita.model.OrderInfoExample">
+    delete from u_order_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.senorita.model.OrderInfo">
+    insert into u_order_info (id, order_pid, order_no, 
+      user_id, total_fee, create_time, 
+      pay_type, pay_time, trade_no, 
+      pay_channel, pay_config_id, refund_time, 
+      orders_type, bonus_rate, total_fee_rate, 
+      order_status, out_number, out_company, 
+      out_desc)
+    values (#{id,jdbcType=BIGINT}, #{orderPid,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{totalFee,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{payType,jdbcType=CHAR}, #{payTime,jdbcType=TIMESTAMP}, #{tradeNo,jdbcType=VARCHAR}, 
+      #{payChannel,jdbcType=CHAR}, #{payConfigId,jdbcType=BIGINT}, #{refundTime,jdbcType=TIMESTAMP}, 
+      #{ordersType,jdbcType=INTEGER}, #{bonusRate,jdbcType=INTEGER}, #{totalFeeRate,jdbcType=INTEGER}, 
+      #{orderStatus,jdbcType=CHAR}, #{outNumber,jdbcType=VARCHAR}, #{outCompany,jdbcType=VARCHAR}, 
+      #{outDesc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.senorita.model.OrderInfo">
+    insert into u_order_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderPid != null">
+        order_pid,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="totalFee != null">
+        total_fee,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="tradeNo != null">
+        trade_no,
+      </if>
+      <if test="payChannel != null">
+        pay_channel,
+      </if>
+      <if test="payConfigId != null">
+        pay_config_id,
+      </if>
+      <if test="refundTime != null">
+        refund_time,
+      </if>
+      <if test="ordersType != null">
+        orders_type,
+      </if>
+      <if test="bonusRate != null">
+        bonus_rate,
+      </if>
+      <if test="totalFeeRate != null">
+        total_fee_rate,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="outNumber != null">
+        out_number,
+      </if>
+      <if test="outCompany != null">
+        out_company,
+      </if>
+      <if test="outDesc != null">
+        out_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderPid != null">
+        #{orderPid,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="totalFee != null">
+        #{totalFee,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=CHAR},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradeNo != null">
+        #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payChannel != null">
+        #{payChannel,jdbcType=CHAR},
+      </if>
+      <if test="payConfigId != null">
+        #{payConfigId,jdbcType=BIGINT},
+      </if>
+      <if test="refundTime != null">
+        #{refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ordersType != null">
+        #{ordersType,jdbcType=INTEGER},
+      </if>
+      <if test="bonusRate != null">
+        #{bonusRate,jdbcType=INTEGER},
+      </if>
+      <if test="totalFeeRate != null">
+        #{totalFeeRate,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="outNumber != null">
+        #{outNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="outCompany != null">
+        #{outCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="outDesc != null">
+        #{outDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.senorita.model.OrderInfoExample" resultType="java.lang.Long">
+    select count(*) from u_order_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update u_order_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderPid != null">
+        order_pid = #{record.orderPid,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalFee != null">
+        total_fee = #{record.totalFee,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payType != null">
+        pay_type = #{record.payType,jdbcType=CHAR},
+      </if>
+      <if test="record.payTime != null">
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tradeNo != null">
+        trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payChannel != null">
+        pay_channel = #{record.payChannel,jdbcType=CHAR},
+      </if>
+      <if test="record.payConfigId != null">
+        pay_config_id = #{record.payConfigId,jdbcType=BIGINT},
+      </if>
+      <if test="record.refundTime != null">
+        refund_time = #{record.refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ordersType != null">
+        orders_type = #{record.ordersType,jdbcType=INTEGER},
+      </if>
+      <if test="record.bonusRate != null">
+        bonus_rate = #{record.bonusRate,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalFeeRate != null">
+        total_fee_rate = #{record.totalFeeRate,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderStatus != null">
+        order_status = #{record.orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.outNumber != null">
+        out_number = #{record.outNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outCompany != null">
+        out_company = #{record.outCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outDesc != null">
+        out_desc = #{record.outDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update u_order_info
+    set id = #{record.id,jdbcType=BIGINT},
+      order_pid = #{record.orderPid,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      total_fee = #{record.totalFee,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      pay_type = #{record.payType,jdbcType=CHAR},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      pay_channel = #{record.payChannel,jdbcType=CHAR},
+      pay_config_id = #{record.payConfigId,jdbcType=BIGINT},
+      refund_time = #{record.refundTime,jdbcType=TIMESTAMP},
+      orders_type = #{record.ordersType,jdbcType=INTEGER},
+      bonus_rate = #{record.bonusRate,jdbcType=INTEGER},
+      total_fee_rate = #{record.totalFeeRate,jdbcType=INTEGER},
+      order_status = #{record.orderStatus,jdbcType=CHAR},
+      out_number = #{record.outNumber,jdbcType=VARCHAR},
+      out_company = #{record.outCompany,jdbcType=VARCHAR},
+      out_desc = #{record.outDesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update u_order_info
+    set id = #{record.id,jdbcType=BIGINT},
+      order_pid = #{record.orderPid,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      total_fee = #{record.totalFee,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      pay_type = #{record.payType,jdbcType=CHAR},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      pay_channel = #{record.payChannel,jdbcType=CHAR},
+      pay_config_id = #{record.payConfigId,jdbcType=BIGINT},
+      refund_time = #{record.refundTime,jdbcType=TIMESTAMP},
+      orders_type = #{record.ordersType,jdbcType=INTEGER},
+      bonus_rate = #{record.bonusRate,jdbcType=INTEGER},
+      total_fee_rate = #{record.totalFeeRate,jdbcType=INTEGER},
+      order_status = #{record.orderStatus,jdbcType=CHAR},
+      out_number = #{record.outNumber,jdbcType=VARCHAR},
+      out_company = #{record.outCompany,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.senorita.model.OrderInfo">
+    update u_order_info
+    <set>
+      <if test="orderPid != null">
+        order_pid = #{orderPid,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="totalFee != null">
+        total_fee = #{totalFee,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=CHAR},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradeNo != null">
+        trade_no = #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payChannel != null">
+        pay_channel = #{payChannel,jdbcType=CHAR},
+      </if>
+      <if test="payConfigId != null">
+        pay_config_id = #{payConfigId,jdbcType=BIGINT},
+      </if>
+      <if test="refundTime != null">
+        refund_time = #{refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ordersType != null">
+        orders_type = #{ordersType,jdbcType=INTEGER},
+      </if>
+      <if test="bonusRate != null">
+        bonus_rate = #{bonusRate,jdbcType=INTEGER},
+      </if>
+      <if test="totalFeeRate != null">
+        total_fee_rate = #{totalFeeRate,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="outNumber != null">
+        out_number = #{outNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="outCompany != null">
+        out_company = #{outCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="outDesc != null">
+        out_desc = #{outDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.senorita.model.OrderInfo">
+    update u_order_info
+    set order_pid = #{orderPid,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      total_fee = #{totalFee,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_type = #{payType,jdbcType=CHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      trade_no = #{tradeNo,jdbcType=VARCHAR},
+      pay_channel = #{payChannel,jdbcType=CHAR},
+      pay_config_id = #{payConfigId,jdbcType=BIGINT},
+      refund_time = #{refundTime,jdbcType=TIMESTAMP},
+      orders_type = #{ordersType,jdbcType=INTEGER},
+      bonus_rate = #{bonusRate,jdbcType=INTEGER},
+      total_fee_rate = #{totalFeeRate,jdbcType=INTEGER},
+      order_status = #{orderStatus,jdbcType=CHAR},
+      out_number = #{outNumber,jdbcType=VARCHAR},
+      out_company = #{outCompany,jdbcType=VARCHAR},
+      out_desc = #{outDesc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.senorita.model.OrderInfo">
+    update u_order_info
+    set order_pid = #{orderPid,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      total_fee = #{totalFee,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_type = #{payType,jdbcType=CHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      trade_no = #{tradeNo,jdbcType=VARCHAR},
+      pay_channel = #{payChannel,jdbcType=CHAR},
+      pay_config_id = #{payConfigId,jdbcType=BIGINT},
+      refund_time = #{refundTime,jdbcType=TIMESTAMP},
+      orders_type = #{ordersType,jdbcType=INTEGER},
+      bonus_rate = #{bonusRate,jdbcType=INTEGER},
+      total_fee_rate = #{totalFeeRate,jdbcType=INTEGER},
+      order_status = #{orderStatus,jdbcType=CHAR},
+      out_number = #{outNumber,jdbcType=VARCHAR},
+      out_company = #{outCompany,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+</mapper>

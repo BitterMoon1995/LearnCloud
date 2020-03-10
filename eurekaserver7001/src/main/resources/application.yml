@@ -1,0 +1,21 @@
+server:
+  port: 7001
+#配置Eureka服务端，Eureka为C/S架构
+eureka:
+  server:
+ #   enable-self-preservation: false  自我保护机制，无特殊业务需求不禁用
+  instance:
+    hostname: eureka7001 #服务端的实例名称
+  client:
+    register-with-eureka: false
+    #是否将自己注册进注册中心
+    #选false eureka服务端不会自己自己注册自己
+    fetch-registry: false
+    #是否要从eureka中获取自己的注册信息
+    #eureka服务端本身不检索自己的服务
+
+    #配置暴露给Eureka Client的请求地址
+    service-url:
+      defaultZone: http://eureka7002:7002/eureka/
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/   单机版
+      #设置与Eureka Service交互的服务注册和服务查询地址

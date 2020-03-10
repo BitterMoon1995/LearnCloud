@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="deptcomsumer80" />
+        <module name="logistics7479" />
+        <module name="sms7379" />
+        <module name="deptprovider8003" />
+        <module name="deptprovider8002" />
+        <module name="deptprovider8001" />
+        <module name="deptcomsumerfeign" />
+        <module name="learncloud-api" />
+        <module name="logistics" />
+        <module name="eurekaserver7001" />
+        <module name="eurekaserver7002" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="deptprovider" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="deptcomsumer80" options="-parameters" />
+      <module name="deptcomsumerfeign" options="-parameters" />
+      <module name="deptprovider8001" options="-parameters" />
+      <module name="deptprovider8002" options="-parameters" />
+      <module name="deptprovider8003" options="-parameters" />
+      <module name="eurekaserver7001" options="-parameters" />
+      <module name="eurekaserver7002" options="-parameters" />
+      <module name="learncloud-api" options="-parameters" />
+      <module name="logistics" options="-parameters" />
+      <module name="logistics7479" options="-parameters" />
+      <module name="sms7379" options="-parameters" />
+    </option>
+  </component>
+</project>

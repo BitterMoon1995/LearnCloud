@@ -1,0 +1,19 @@
+server:
+  port: 7379
+spring:
+  application:
+    name: SMS-SERVICE
+  redis:
+    host: 192.168.62.128
+    port: 6379
+    password: 123456
+
+#注册eureka客户端
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+  instance:
+    instance-id: SMS-7379
+    prefer-ip-address: true
+

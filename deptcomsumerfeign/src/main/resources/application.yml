@@ -1,0 +1,19 @@
+server:
+  port: 9002
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://eureka7001:7001/eureka/,http://eureka7002:7002/eureka/
+
+## 这个IFeignService是加了@FeignClient注解的类
+#IFeignService:
+#  ribbon:
+    ## 服务提供者的地址，不是服务注册中心的地址
+#    listOfServers: http://localhost:8001
+
+## 这个要有，如果不加，只加了上面也没用
+#ribbon:
+#  eureka:
+#    enabled: false
+

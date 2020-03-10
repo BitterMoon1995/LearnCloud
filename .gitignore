@@ -1,0 +1,11 @@
+# Project exclude paths
+/deptcomsumer80/target/
+/deptcomsumerfeign/target/
+/deptprovider8001/target/
+/deptprovider8002/target/
+/deptprovider8003/target/
+/eurekaserver7001/target/
+/eurekaserver7002/target/
+/learncloud-api/target/
+/logistics7479/target/
+/sms7379/target/

@@ -1,0 +1,54 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: DEPT-8001
+#    对外暴露、注册进Eureka的微服务名字！！！
+#    若为相同服务的提供者组成的集群，请务必不要改，保持一致！！！
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost/cygnus?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 201
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+#    schema:
+#      - classpath:department.sql
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.senorita.model
+  config-location: classpath:mybatis.xml
+#SB整合MyBatis:
+#  1.（加starter加generator依赖之后）在主函数前加上注解@MapperScan("com.cygnus.dao ")
+#  扫描所有dao接口！或者dao接口一个个地加@Mapper！！！加@Component没用！！！
+#  2.主配置文件加上mapper-location和stype-aliases-package指定映射文件和实体类位置！！！
+#  3.可以通过 config-location: 来指定土味xml配置文件位置！
+
+#注册eureka客户端
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+  instance:
+    instance-id: DEPT-8002  #自定义服务名称信息,没必要，搞笑的
+    prefer-ip-address: true   #鼠标悬浮服务名上时，左下角显示IP地址
+#配置监控监视的应用信息
+info:
+  build.appname: $周神云之部门微服务$
+  build.companyname: $周神一生之憾：老北京儿尚硅谷$
